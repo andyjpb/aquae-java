@@ -58,6 +58,22 @@ import java.util.*;
 
 public class AquaeDataStructures {
 
+	public static class Person {
+		final String  surname;
+		final String  postcode;
+		final Integer birthYear;
+		final Integer houseNumber;
+		final String  dateOfBirth; // TODO: convert to java date time thingy.
+
+		public Person(String surname, String postcode, Integer birthYear, Integer houseNumber, String dateOfBirth) {
+			this.surname     = surname;
+			this.postcode    = postcode;
+			this.birthYear   = birthYear;
+			this.houseNumber = houseNumber;
+			this.dateOfBirth = dateOfBirth;
+		}
+	}
+
 	static class ConfidenceAttribute {
 		private final String name;
 		private final String description;
