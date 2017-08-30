@@ -245,5 +245,43 @@ public class AquaeQuery {
 			throw new RuntimeException("Cannot add choice " + c + " to query " + this + ": this query already knows about that choice!");
 		}
 	}
+
+
+	public class Plan {
+	// TODO: state : pointers to the metadata, the name of the asking node and the name of the asked node.
+		String[] IdentityRequirements; // nodes and their id field reqs
+
+		void set_identity(AquaeDataStructures.Person p) {
+			// check that all the right fields in p are set based on the IdentityRequirements.
+			// stash p somewhere
+			// send the identity off to the identity bridge (from the plan) for signing
+			// stash the signed identity somewhere. it'll be opaque
+
+		}
+
+		// ...
+
+		public Result execute() {
+
+			return null;
+		}
+
+	}
+
+	public class Result {
+		// There's some kind of structure in here that maps the answers to their types and values
+
+	}
+
+
+	public Choice[] getChoices() {
+
+		return null;
+	}
+
+	public Plan plan(Choice c) {
+
+		return null;
+	}
 }
 
