@@ -318,6 +318,54 @@ public class AquaeLoLevel {
 		QUERY_ANSWER(),
 		FINISH(),
 	}
+	/*
+	public static enum MsgType {
+		IDENTITY_SIGN_REQUEST (1, IdentitySignRequest.class),
+		SIGNED_QUERY          ,
+		BAD_QUERY_RESPONSE    ,
+		QUERY_RESPONSE        ,
+		SECOND_WHISTLE        ,
+		QUERY_ANSWER          ,
+		FINISH                ,
+		;
+
+		private final int                      ordinal;
+		private final Class<? extends Message> the_class;
+
+		MsgType(int ordinal, Class<? extends Message> the_class) {
+			this.ordinal   = ordinal;
+			this.the_class = the_class;
+
+			System.out.println("MsgType Constructor for " + ordinal);
+		}
+
+		public Message newMessage(byte[] buffer) {
+			Message  m    = null;
+
+			try {
+				// Reference to the outer class is null because enums are implicitly static.
+				// http://docs.oracle.com/javase/specs/jls/se7/html/jls-8.html#jls-8.9
+				m = the_class.getConstructor(this.getClass().getEnclosingClass(), byte[].class).newInstance(null, buffer);
+			} catch (NoSuchMethodException e) {
+				System.out.println(e);
+				// Thrown from getConstructor
+			} catch (InstantiationException e) {
+				System.out.println(e);
+				// Thrown from newInstance
+			} catch (IllegalAccessException e) {
+				System.out.println(e);
+				// Thrown from newInstance
+			} catch (java.lang.reflect.InvocationTargetException e) {
+				System.out.println(e);
+				//InvocationTargetException
+				// Thrown from newInstance
+			}
+
+			return m;
+
+		}
+	}
+	*/
 
 
 	////////////////////////////////////////////////////////////////////////
