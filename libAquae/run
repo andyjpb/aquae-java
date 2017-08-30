@@ -1,0 +1,7 @@
+#!/bin/sh
+dir=`dirname $0`
+cd $dir || exit 1
+#exec java -enableassertions -cp .:./json-simple-1.1.1.jar morc4j "$@"
+exec java -enableassertions -cp libAquae-0.1.0.jar:/usr/share/java/protobuf-2.6.1.jar "$@"
+exit 1
+
