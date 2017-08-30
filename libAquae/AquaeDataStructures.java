@@ -74,6 +74,10 @@ public class AquaeDataStructures {
 		}
 	}
 
+	public static class Agent {
+
+	}
+
 	static class ConfidenceAttribute {
 		private final String name;
 		private final String description;
