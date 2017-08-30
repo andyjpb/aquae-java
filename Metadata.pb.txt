@@ -1,0 +1,207 @@
+# This is a Sample PDE Federation Metadata file in Protocol Buffers Text
+# Format.
+# Convert it to binary thus:
+#  protoc --encode=Metadata metadata.proto < Metadata.pb.txt > Metadata.pb.bin
+
+
+################################################################################
+# Validity section for this Metadata file.
+
+validity {
+	version: "1"
+	validFrom: "2017-08-04T17:43:45Z"
+	validTo:   "2017-08-04T18:43:45Z"
+}
+
+
+################################################################################
+# List of nodes in the federation.
+
+node {
+	name: "dla.dwp.gov.uk"
+	location {
+		ipAddress: "127.0.0.1"
+		portNumber: 8099
+	}
+	publicKey: "abcdef"
+
+}
+
+node {
+	name: "pip.dwp.gov.uk"
+	location {
+		ipAddress: "127.0.0.2"
+		portNumber: 8098
+	}
+	publicKey: "abcdef"
+
+}
+
+node {
+	name: "bb.dft.gov.uk"
+	location {
+		ipAddress: "127.0.0.3"
+		portNumber: 8097
+	}
+	publicKey: "abcdef"
+
+}
+
+node {
+	name: "wcc.la.gov.uk"
+	location {
+		ipAddress: "127.0.0.4"
+		portNumber: 8096
+	}
+	publicKey: "abcdef"
+
+}
+
+node {
+	name: "lcc.dwp.gov.uk"
+	location {
+		ipAddress: "127.0.0.5"
+		portNumber: 8095
+	}
+	publicKey: "abcdef"
+
+}
+
+node {
+	name: "id.gds.gov.uk"
+	location {
+		ipAddress: "127.0.0.6"
+		portNumber: 8094
+	}
+	publicKey: "abcdef"
+
+}
+
+
+################################################################################
+# List of agreements between nodes in the federation.
+
+agreement {
+	link {
+		nodeFrom: "wcc.la.gov.uk"
+		nodeTo: "bb.dft.gov.uk"
+		question {
+			queryName: "bb?"
+		}
+	}
+	link {
+		nodeFrom: "bb.la.gov.uk"
+		nodeTo: "wcc.dft.gov.uk"
+		answer {
+			queryName: "bb?"
+		}
+	}
+	link {
+		nodeFrom: "wcc.la.gov.uk"
+		nodeTo: "dla.dwp.gov.uk"
+		eid {}
+	}
+	link {
+		nodeFrom: "wcc.la.gov.uk"
+		nodeTo: "pip.dwp.gov.uk"
+		eid {}
+	}
+	link {
+		nodeFrom: "id.gds.gov.uk"
+		nodeTo: "wcc.la.gov.uk"
+		eid {}
+	}
+	justification: "Data shaing agreement between WCC and DFT for Blue Badge"
+	# scope: "" # Should be absent when there is no scope.
+	legalBasis: "Education Act"
+	onDemand {}
+	oneShot {}
+}
+
+agreement {
+	link {
+		nodeFrom: "bb.dft.gov.uk"
+		nodeTo: "dla.dwp.gov.uk"
+		question {
+			queryName: "dla-higher?"
+		}
+	}
+	link {
+		nodeFrom: "dla.dft.gov.uk"
+		nodeTo: "bb.dwp.gov.uk"
+		answer {
+			queryName: "dla-higher?"
+		}
+	}
+	link {
+		nodeFrom: "bb.dft.gov.uk"
+		nodeTo: "pip.dwp.gov.uk"
+		question {
+			queryName: "pip>8?"
+		}
+	}
+	link {
+		nodeFrom: "pip.dft.gov.uk"
+		nodeTo: "bb.dwp.gov.uk"
+		answer {
+			queryName: "pip>8?"
+		}
+	}
+	justification: "Data shaing agreement between DFT and DWP for Blue Badge on behalf of Local Authorities"
+	scope: "bb?" # This agreement is only valid for answering bb? queries.
+	legalBasis: "Education Act"
+	onDemand {}
+	oneShot {}
+}
+
+
+################################################################################
+# List of queries available to nodes in this federation.
+
+query {
+	name: "dla-higher?"
+	node {
+		nodeId: "dla.dwp.gov.uk"
+		matchingRequirements {
+			required: SURNAME
+			required: POSTCODE
+			disambiguators: HOUSE_NUMBER
+			confidenceBuilders: "NI#"
+		}
+	}
+}
+query {
+	name: "pip>8?"
+	node {
+		nodeId: "pip.dwp.gov.uk"
+		matchingRequirements {
+			required: SURNAME
+			required: YEAR_OF_BIRTH
+			disambiguators: HOUSE_NUMBER
+			disambiguators: DATE_OF_BIRTH
+			confidenceBuilders: "NI#"
+		}
+	}
+}
+query {
+	name: "bb?"
+	node {
+		nodeId: "bb.dft.gov.uk"
+	}
+	choice {
+		requiredQuery: "dla-higher?"
+	}
+	choice {
+		requiredQuery: "pip>8?"
+	}
+}
+
+
+################################################################################
+# Attributes used by the Matching Engines for Confidence Building.
+
+confidenceAttribute {
+	name: "NI#"
+	description: "National Insurance Numer"
+}
+

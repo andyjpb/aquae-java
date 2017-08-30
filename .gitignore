@@ -1,0 +1,7 @@
+*~
+.*.swp
+*.class
+libAquae/bin/
+libAquae/generated/
+libAquae/libAquae-*.jar
+
