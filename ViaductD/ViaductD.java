@@ -67,19 +67,22 @@ class Tools {
 
 
 class ViaductListener implements Runnable {
-	int port;
+	private final int    port;
+	private final String nodeName;
 
-	ViaductListener(int port) {
-		this.port = port;
+	ViaductListener(int port, String nodeName) {
+		this.port     = port;
+		this.nodeName = nodeName;
 	}
 
 	public void run() {
 		ServerSocket server = null;
 		long         id     = Thread.currentThread().getId();
 
-		Tools.debug(id, "new-listener");
+		System.err.print("Coming up for Aquae requests as " + nodeName + " on port " + port + "...\n\n");
 		try {
 			server = new ServerSocket(port);
+			System.err.print("Viaduct is ready for action!\n - aquae://localhost:" + port + "/\n\n");
 			while (true) {
 				new Thread(new ViaductWorker(server.accept())).start();
 			}
@@ -173,10 +176,11 @@ public class ViaductD {
 	}
 
 	public static void main(String[] args) throws Exception {
-		String        config_file = null;
-		int           port        = 8099;
-		ViaductListener listener    = null;
-		Thread        thread      = null;
+		String                           config_file = null;
+		ViaductConfig                    config      = null;
+		Iterator<ViaductConfig.Listener> ivl         = null;
+		List<Thread>                     threads     = new ArrayList<Thread>();
+		Iterator<Thread>                 it          = null;
 
 		if (args.length != 1) {
 			usage(1);
@@ -189,15 +193,32 @@ public class ViaductD {
 		System.err.print("Written by Andy Bennett <andyjpb@digital.cabinet-office.gov.uk, 2017/08/09\n");
 		System.err.print("\n");
 
-		listener = new ViaductListener(port);
-		thread   = new Thread (listener);
-		thread.start();
+		config = new ViaductConfig(config_file);
+		System.err.print("\n");
 
-		thread.join();
+		if (config == null) {
+			throw new RuntimeException("Failed to read config file!");
+		}
 
+		ivl = config.listeners.iterator();
+		while(ivl.hasNext()) {
+			ViaductListener        listener = null;
+			Thread                 thread   = null;
+			ViaductConfig.Listener l        = ivl.next();
 
-		System.out.print("Hello World!\n");
+			listener = new ViaductListener(l.port, l.node_name); // TODO: change argument to a pointer to the config?
+			thread   = new Thread(listener);
+			thread.start();
 
+			threads.add(thread);
+		}
+
+		it = threads.iterator();
+		while (it.hasNext()) {
+			Thread t = it.next();
+
+			t.join();
+		}
 	}
 }
 
