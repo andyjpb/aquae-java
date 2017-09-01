@@ -1,0 +1,20 @@
+# This is a Sample Viaduct Config file in Protocol Buffers Text Format.
+# Convert it to binary thus:
+#  protoc --encode=DaemonConfig config.proto < Config.pb.txt > Config.pb.bin
+
+
+################################################################################
+# List of Listeners that we run.
+
+listener {
+	node_name: "bb.dft.gov.uk"
+	port: 8099
+	metadata_file: "../Metadata.pb.bin"
+}
+listener {
+	node_name: "wcc.la.gov.uk"
+	port: 8100
+	metadata_file: "../Metadata.pb.bin"
+}
+################################################################################
+

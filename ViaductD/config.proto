@@ -1,0 +1,19 @@
+syntax = "proto2";
+//package Viaduct;
+//option java_package           = "uk.gov.Viaduct";
+option java_outer_classname   = "ProtocolBuffers";
+option java_multiple_files    = false;
+option java_string_check_utf8 = true;
+option java_generic_services  = false;
+
+message DaemonConfig {
+	repeated Listener listener = 1;
+}
+
+message Listener {
+	optional string node_name     = 1;
+	optional int32  port          = 2;
+	optional string metadata_file = 3;
+	repeated string query         = 4;
+}
+
