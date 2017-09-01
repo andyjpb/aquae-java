@@ -119,6 +119,7 @@ public class AquaeMetadata {
 		Map<String, AquaeAgreement>                                         agreements    = null;
 
 		md = uk.gov.Aquae.ProtocolBuffers.Metadata.Federation.parseFrom(new FileInputStream(filename));
+		// TODO: add magic so that we know we got something of the correct type.
 		this.filename = filename;
 
 		//  + Validate the Metadata file
