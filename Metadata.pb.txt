@@ -1,7 +1,7 @@
 # This is a Sample PDE Federation Metadata file in Protocol Buffers Text
 # Format.
 # Convert it to binary thus:
-#  protoc --encode=Metadata metadata.proto < Metadata.pb.txt > Metadata.pb.bin
+#  protoc --encode=Aquae.Metadata.Federation libAquae/metadata.proto < Metadata.pb.txt > Metadata.pb.bin
 
 
 ################################################################################
